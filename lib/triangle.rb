@@ -1,53 +1,36 @@
-require 'pry'
 class Triangle
-  # write code here
-
-  attr_accessor :side1, :side2, :side3
-  @sides = []
-
-  def initialize(side1, side2, side3)
-    @side1, @side2, @side3 = side1, side2, side3
-    @sides = [side1, side2, side3]
+  attr_accessor :x, :y, :z
+  def initialize(x, y, z)
+    @x = x
+    @y = y
+    @z = z
   end
 
   def kind
-    if(negative? == true || valid? == false)
-      raise TriangleError
-    elsif(equilateral?)
+    if kosher_triangle == true && kosher_triangle2 == true 
+      puts true 
+    else 
+      raise TriangleError 
+    end 
+
+    if x == y && y == z && x == z
       :equilateral
-    elsif(scalene?)
-      :scalene
-    elsif(isosceles?)
+    elsif x != y && y != z && z != x
+      :scalene 
+    else 
       :isosceles
-    end
+    end 
   end
 
-  def negative?
-    @sides.each do |length|
-      if(length <= 0)
-        return true
-      end
-    end
-  end
+  def kosher_triangle 
+    x.positive? && y.positive? && z.positive?
+  end 
 
-  def equilateral?
-    (@side1 == @side2) && (@side1 == @side3)
-  end
-
-  def scalene?
-    (@side1 != @side2) && (@side1!= @side3) && (@side2 != @side3)
-  end
-
-  def isosceles?
-    (@side2 == @side3) || (@side1 == @side2) || (@side1 = @side3)
-  end
-
-  def valid?
-    (@side1 + @side2 > @side3) && (@side2 + @side3 > @side1) && (@side1 + @side3 > @side2)
-  end
-
-end
+  def kosher_triangle2 
+    x + y > z && x + z > y && y + z > x
+  end 
 
 class TriangleError < StandardError
 
+end
 end

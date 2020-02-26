@@ -1,7 +1,7 @@
 class Triangle
   # write code here
   attr_reader :hypotenuse, :adjacent, :opposite, :sides
-end
+end 	
    def initialize(hypotenuse, adjacent, opposite)
     @hypotenuse = hypotenuse
     @adjacent = adjacent
@@ -23,5 +23,11 @@ end
 
    def invalid_triangle?
     sides.any? { |side| side <= 0 } || sides[0] + sides[1] <= sides[2]
+  end
+end
+
+ class TriangleError < StandardError
+  def message
+    "That's no triangle. Of that I'm sure."
   end
 end

@@ -1,24 +1,29 @@
 class Triangle
   # write code here
-  attr_accessor :a, :b, :c
-
-  def initialize(a, b, c)
-    @a, @b, @c = a, b, c
+  attr_reader :hypotenuse, :adjacent, :opposite, :sides
+end
+   def initialize(hypotenuse, adjacent, opposite)
+    @hypotenuse = hypotenuse
+    @adjacent = adjacent
+    @opposite = opposite
+    @sides = [hypotenuse, adjacent, opposite].sort
   end
 
-  def kind
-    min, min2, max = [@a, @b, @c].sort
-    if @a < 0 || @b < 0 || @c < 0 || min + min2 <= max
+   def kind
+    if invalid_triangle?
       raise TriangleError
-    end
-
-    if @a == @b && @b == c
+    elsif sides.uniq.length == 1
       :equilateral
-    elsif @a == @b || @a == @c || @b == @c
+    elsif sides.uniq.length == 2
       :isosceles
     else
       :scalene
     end
   end
+
+   def invalid_triangle?
+    sides.any? { |side| side <= 0 } || sides[0] + sides[1] <= sides[2]
+  end
+end
 
 end

@@ -25,5 +25,3 @@ end
     sides.any? { |side| side <= 0 } || sides[0] + sides[1] <= sides[2]
   end
 end
-
-
